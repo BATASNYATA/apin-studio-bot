@@ -7,7 +7,8 @@ from discord import app_commands
 TOKEN = os.environ["DISCORD_TOKEN"]
 SILVER = discord.Color.from_str("#C0C0C0")
 DARK_GREY = discord.Color.from_str("#4A4A4A")
-BOT_NAME = "Apin Studio"
+BOT_NAME = "Batas Nyata"
+STATUS_TEXT = "Created Apin Studio"
 MAX_SIZE = 25 * 1024 * 1024
 
 intents = discord.Intents.default()
@@ -17,7 +18,7 @@ tree = app_commands.CommandTree(client)
 
 def make_embed(title, desc, color=SILVER):
     e = discord.Embed(title=title, description=desc, color=color)
-    e.set_footer(text=f"{BOT_NAME} • Asset Downloader")
+    e.set_footer(text=f"{BOT_NAME} • {STATUS_TEXT}")
     return e
 
 
@@ -41,7 +42,7 @@ def detect_ext(data: bytes) -> str:
 async def on_ready():
     await tree.sync()
     await client.change_presence(
-        activity=discord.Activity(type=discord.ActivityType.watching, name="Asset ID Roblox"),
+        activity=discord.CustomActivity(name=STATUS_TEXT),
         status=discord.Status.idle,
     )
     print(f"Login sebagai {client.user}")
